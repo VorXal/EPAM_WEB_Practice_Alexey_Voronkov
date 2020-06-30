@@ -1,0 +1,36 @@
+{
+  "name": "practice-webpack",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VorXal/EPAM_WEB_Practice_Alexey_Voronkov.git"
+  },
+  "keywords": [
+    "javascript",
+    "js",
+    "webpack"
+  ],
+  "author": "VorXal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VorXal/EPAM_WEB_Practice_Alexey_Voronkov/issues"
+  },
+  "homepage": "https://github.com/VorXal/EPAM_WEB_Practice_Alexey_Voronkov#readme",
+  "devDependencies": {
+    "css-loader": "^3.6.0",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "html-webpack-plugin": "^4.3.0",
+    "mini-css-extract-plugin": "^0.9.0",
+    "node-sass": "^4.14.1",
+    "sass": "^1.26.9",
+    "sass-loader": "^8.0.2",
+    "style-loader": "^1.2.1",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12"
+  }
+}
