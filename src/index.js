@@ -1,23 +1,17 @@
 import './sass/style.sass';
 
-
-let text = document.getElementById("hello");
-text.addEventListener("click", ChangeColor, false);
-
-let hint = document.getElementById("hint");
+const buttons = document.getElementsByClassName("menu-item");
+const htmlButtons = document.getElementsByClassName("menu-item-name");
+const main = document.getElementsByTagName("main")[0];
 
 
-function ChangeColor(){
-    if(text.style.color === 'white')
-    {
-        text.style.color = 'black';
-    }
-    else{
-        text.style.color = 'white';
-    }
-    hint.innerText = "LOL ))00))0)))"
+for(let i = 0; i < buttons.length; i++){
+    buttons[i].addEventListener("click",() => {
+        let text = buttons[i].getElementsByClassName("menu-item-name")[0];
+        for(let l = 0; l < htmlButtons.length; l++){
+            htmlButtons[l].style.color = "black";
+        }
+        text.style.color = "#18D47C";
+        main.innerText = text.innerText;
+    })
 }
-
-console.log(hint.innerText);
-console.log('Hello!');
-
