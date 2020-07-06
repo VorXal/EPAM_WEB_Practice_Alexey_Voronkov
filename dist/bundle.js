@@ -93,7 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("// Imports\nvar ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ \"./node_modules/css-loader/dist/runtime/api.js\");\nexports = ___CSS_LOADER_API_IMPORT___(false);\n// Module\nexports.push([module.i, \"body {\\n  margin: 0px;\\n  background-color: #F3F9FF; }\\n\\nmain {\\n  margin: 0 10px 70px 10px;\\n  min-height: calc(100vh - 70px); }\\n\\nfooter {\\n  position: fixed;\\n  left: 0;\\n  bottom: 0;\\n  width: 100%;\\n  margin: 0;\\n  display: flex;\\n  align-items: center;\\n  justify-content: space-around;\\n  height: 70px;\\n  background-color: #ffffff; }\\n\\n.menu-item {\\n  display: flex;\\n  align-items: center;\\n  justify-content: space-around; }\\n  .menu-item img {\\n    display: block;\\n    margin-left: auto;\\n    margin-right: auto;\\n    height: 40px;\\n    width: 40px; }\\n  .menu-item .menu-item-name {\\n    display: block;\\n    margin-left: auto;\\n    margin-right: auto; }\\n\", \"\"]);\n// Exports\nmodule.exports = exports;\n\n\n//# sourceURL=webpack:///./src/sass/style.sass?./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js");
+eval("// Imports\nvar ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ \"./node_modules/css-loader/dist/runtime/api.js\");\nexports = ___CSS_LOADER_API_IMPORT___(false);\n// Module\nexports.push([module.i, \"body {\\n  margin: 0px;\\n  background-color: #F3F9FF;\\n  min-width: 411px; }\\n\\nmain {\\n  margin: 0 10px 70px 10px; }\\n\\nfooter {\\n  position: fixed;\\n  left: 0;\\n  bottom: 0;\\n  width: 100%;\\n  margin: 0;\\n  display: flex;\\n  align-items: center;\\n  justify-content: space-around;\\n  height: 70px;\\n  background-color: #ffffff; }\\n\\n.menu-item {\\n  display: flex;\\n  align-items: center;\\n  justify-content: space-around; }\\n  .menu-item img {\\n    display: block;\\n    margin-left: auto;\\n    margin-right: auto;\\n    height: 40px;\\n    width: 40px; }\\n  .menu-item .menu-item-name {\\n    display: block;\\n    margin-left: auto;\\n    margin-right: auto; }\\n\", \"\"]);\n// Exports\nmodule.exports = exports;\n\n\n//# sourceURL=webpack:///./src/sass/style.sass?./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js");
 
 /***/ }),
 
@@ -121,6 +121,17 @@ eval("\n\nvar isOldIE = function isOldIE() {\n  var memo;\n  return function mem
 
 /***/ }),
 
+/***/ "./src/buttons.js":
+/*!************************!*\
+  !*** ./src/buttons.js ***!
+  \************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("const buttons = document.getElementsByClassName(\"menu-item\");\r\nconst htmlButtons = document.getElementsByClassName(\"menu-item-name\");\r\nconst main = document.getElementsByTagName(\"main\")[0];\r\n\r\n\r\nfor(let i = 0; i < buttons.length; i++){\r\n    buttons[i].addEventListener(\"click\",() => {\r\n        let text = buttons[i].getElementsByClassName(\"menu-item-name\")[0];\r\n        for(let l = 0; l < htmlButtons.length; l++){\r\n            htmlButtons[l].style.color = \"black\";\r\n        }\r\n        text.style.color = \"#18D47C\";\r\n        main.innerText = text.innerText;\r\n    })\r\n}\n\n//# sourceURL=webpack:///./src/buttons.js?");
+
+/***/ }),
+
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
@@ -129,7 +140,7 @@ eval("\n\nvar isOldIE = function isOldIE() {\n  var memo;\n  return function mem
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _sass_style_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./sass/style.sass */ \"./src/sass/style.sass\");\n/* harmony import */ var _sass_style_sass__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_sass_style_sass__WEBPACK_IMPORTED_MODULE_0__);\n\r\n\r\nconst buttons = document.getElementsByClassName(\"menu-item\");\r\nconst htmlButtons = document.getElementsByClassName(\"menu-item-name\");\r\nconst main = document.getElementsByTagName(\"main\")[0];\r\n\r\n\r\nfor(let i = 0; i < buttons.length; i++){\r\n    buttons[i].addEventListener(\"click\",() => {\r\n        let text = buttons[i].getElementsByClassName(\"menu-item-name\")[0];\r\n        for(let l = 0; l < htmlButtons.length; l++){\r\n            htmlButtons[l].style.color = \"black\";\r\n        }\r\n        text.style.color = \"#18D47C\";\r\n        main.innerText = text.innerText;\r\n    })\r\n}\r\n\n\n//# sourceURL=webpack:///./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _sass_style_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./sass/style.sass */ \"./src/sass/style.sass\");\n/* harmony import */ var _sass_style_sass__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_sass_style_sass__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _buttons__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./buttons */ \"./src/buttons.js\");\n/* harmony import */ var _buttons__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_buttons__WEBPACK_IMPORTED_MODULE_1__);\n\r\n\r\n\r\n\n\n//# sourceURL=webpack:///./src/index.js?");
 
 /***/ }),
 

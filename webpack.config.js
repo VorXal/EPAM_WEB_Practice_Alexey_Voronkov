@@ -1,3 +1,4 @@
+
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -23,6 +24,20 @@ module.exports = {
               'sass-loader',
             ],
           },
+          {
+            test: /\.html$/i,
+            loader: 'html-loader',
+          },
+          {
+            test: /\.(png|jpg|gif)$/,
+            use: {
+              loader: "file-loader",
+              options: {
+                name: "[name].[hash].[ext]",
+                outputPath: "icons"
+              }
+            }
+          }
         ],
     },
     plugins:[
