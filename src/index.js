@@ -1,3 +1,4 @@
 import './sass/style.sass';
-import './buttons'
+import './app'
 
+const client = require('./client.js');
