@@ -38,31 +38,23 @@ async function RunAllVoicesMode(){
     request.open('GET', linkStory);
     request.responseType = 'json';
     request.send();
-    getVoices(request);
-}
-
-async function getVoices(request){
-    request.onload = async function() {
+    request.onload = async function(){
         for(let i = 0; i < request.response.length; i++){
-            let tempAudio = request.response[i];
-            let tempAudioTime = tempAudio["timeStamp"];
-            let tempBlob  = new Blob(new Uint8Array(tempAudio["audioBlob"][0]["data"]));
-            
+            let tempBlob = new Blob([new Uint8Array(request.response[i].audioBlob[0].data).buffer] , {type:'audio'});
             if(tempBlob.size === 0){
                 continue;
             }
             const audioUrl = URL.createObjectURL(tempBlob);
             const audio = new Audio(audioUrl);
-            console.log(toArrayBuffer([tempAudio["audioBlob"][0]].toString()));
-            // console.log(audioUrl);
-            // content.innerHTML = `<audio controls src=\'${audioUrl}\'></audio>`;
-        }
-        
-        // const audioUrl = URL.createObjectURL(tempBlob);
-        // const audio = new Audio(audioUrl);
-        // audio.play();
+            let audioHtml = document.createElement('div');
+
+            audioHtml.innerHTML = `<audio controls src=\'${audioUrl}\'></audio>`;
+            content.append(audioHtml);
+            console.log(tempBlob);
+            }
+        };
     }
-}
+
 
 function RunMicrophoneMode(){
     let newHtml = '<button id=\'recorder\' class=\'btn btn-rec\'>Record</button>' +
@@ -104,11 +96,10 @@ function RunMicrophoneMode(){
 
 function RunStreamMode(){
     socket.on('audioMessage', function (audioChunks) {
-        audioChunks = new Uint16Array(audioChunks);
         const audioBlob = new Blob(audioChunks);
+        console.log(audioBlob);
         const audioUrl = URL.createObjectURL(audioBlob);
         const audio = new Audio(audioUrl);
-        console.log(audioChunks);
         // console.log(audioBlob);
         // console.log(audioUrl);
         // content.innerHTML = `<audio controls src=\'${audioUrl}\'></audio>`;
@@ -117,13 +108,6 @@ function RunStreamMode(){
 
 }
 
-function toArrayBuffer(array){
-    let output  = new ArrayBuffer(array.length * 2);
-    for(let i = 0; i < array.length; i++){
-        output[i] = array.charCodeAt(i);
-    }
-    return output;
-}
 
 socket.on('connect', socket =>{
     console.log('Connected');
