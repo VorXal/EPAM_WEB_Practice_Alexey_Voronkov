@@ -7,9 +7,21 @@ body
   margin: 0px
   background-color: $body_bgcolor
   min-width: 411px
+  font-family: Gill Sans, sans-serif
+  height: 100%
+
+.online-info
+  margin: 5px auto
 
 main
   margin: 0 10px 70px 10px
+  height: 100%
+
+.mode
+  display: flex
+  justify-content: center
+  align-items: center
+  margin: 0 auto
 
 footer
   position: fixed
@@ -22,6 +34,19 @@ footer
   justify-content: space-around
   height: 70px
   background-color: $footer_bgcolor
+
+.btn
+  margin: 10 auto
+  padding: 10px
+  border-radius: 50%
+  border: none
+  text-align: center
+  text-decoration: none
+  display: inline-block
+  &-rec
+    background-color: green
+  &-stop
+    background-color: blue
 
 .enable
   color: $enable-btn
