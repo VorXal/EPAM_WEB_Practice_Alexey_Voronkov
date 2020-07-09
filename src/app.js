@@ -40,17 +40,20 @@ async function RunAllVoicesMode(){
     request.send();
     request.onload = async function(){
         for(let i = 0; i < request.response.length; i++){
-            let tempBlob = new Blob([new Uint8Array(request.response[i].audioBlob[0].data).buffer] , {type:'audio'});
-            if(tempBlob.size === 0){
-                continue;
-            }
-            const audioUrl = URL.createObjectURL(tempBlob);
-            const audio = new Audio(audioUrl);
-            let audioHtml = document.createElement('div');
-
-            audioHtml.innerHTML = `<audio controls src=\'${audioUrl}\'></audio>`;
-            content.append(audioHtml);
-            console.log(tempBlob);
+            if(request.response[i].audioBlob[0] !== undefined){
+                let tempBlob = new Blob([new Uint8Array(request.response[i].audioBlob[0].data).buffer] , {type:'audio'});
+                if(tempBlob.size === 0){
+                    continue;
+                }
+                let tempAudioTime = request.response[i]['timeStamp'].slice(0, -29);
+                const audioUrl = URL.createObjectURL(tempBlob);
+                const audio = new Audio(audioUrl);
+                let audioHtml = document.createElement('div');
+                audioHtml.innerHTML += '<strong>Date:</strong> ' + tempAudioTime.slice(0,16) + '<strong>Time:</strong> ' + tempAudioTime.slice(16,24) + '  (-3 МСК)';
+                audioHtml.innerHTML += `<audio controls src=\'${audioUrl}\'></audio>`;
+                content.append(audioHtml);
+                console.log(tempBlob);
+                }
             }
         };
     }
@@ -61,34 +64,34 @@ function RunMicrophoneMode(){
     '<button id=\'stop\' class=\'btn btn-stop\'>Stop</button>'
     content.innerHTML = newHtml;
     
+    const recorder = document.getElementById('recorder');
+    const stop = document.getElementById('stop');
+    recorder.onclick = () =>{
+        navigator.mediaDevices.getUserMedia({ audio: true })
+            .then(stream => {
+                const mediaRecorder = new MediaRecorder(stream);
+                mediaRecorder.start();
 
+                const audioChunks = [];
 
-    // const recorder = document.getElementById('recorder');
-    // const stop = document.getElementById('stop');
-    // if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-    //         console.log('getUserMedia supported.');
-    //         navigator.mediaDevices.getUserMedia (
-    //            {
-    //               audio: true
-    //            })
-    //             .then(function(stream) {
-    //             record.onclick = function() {
-        //             mediaRecorder.start();
-        //             console.log(mediaRecorder.state);
-        //             console.log("recorder started");
-        //           }
-        //        })
-        //        .catch(function(err) {
-        //           console.log('The following `getUserMedia` error occured: ' + err);
-        //        }
-        //     );
-        //  } else {
-        //     console.log('getUserMedia not supported on your browser!');
-//         }
-//     }
-//     stop.onclick = () => {
-//         console.log(stop.innerHTML);
-//     }
+                mediaRecorder.addEventListener("dataavailable", event => {
+                audioChunks.push(event.data);
+                });
+                stop.onclick = () => {
+                    mediaRecorder.stop();
+                }
+
+                mediaRecorder.addEventListener("stop", () => {
+                    const audioBlob = new Blob(audioChunks);
+                    const audioUrl = URL.createObjectURL(audioBlob);
+                    const audio = new Audio(audioUrl);
+                    socket.emit('audioMessage', audioChunks);
+                    audio.play();
+                });
+            });
+    }
+    
+
 }
 
 
