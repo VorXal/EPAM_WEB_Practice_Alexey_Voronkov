@@ -19,7 +19,7 @@ for(let i = 0; i < buttons.length; i++){
             content.innerHTML = '';
             switch(i){
                 case 0:
-                    RunAllVoicesMode();
+                    RunAllVoicesMode();           
                     break;
                 case 1:
                     RunMicrophoneMode();
@@ -34,6 +34,7 @@ for(let i = 0; i < buttons.length; i++){
 }
 
 async function RunAllVoicesMode(){
+    socket.removeListener('audioMessage');
     let request = new XMLHttpRequest();
     request.open('GET', linkStory);
     request.responseType = 'json';
@@ -49,6 +50,7 @@ async function RunAllVoicesMode(){
                 const audioUrl = URL.createObjectURL(tempBlob);
                 const audio = new Audio(audioUrl);
                 let audioHtml = document.createElement('div');
+                audioHtml.className = 'audioMessage';
                 audioHtml.innerHTML += '<strong>Date:</strong> ' + tempAudioTime.slice(0,16) + '<strong>Time:</strong> ' + tempAudioTime.slice(16,24) + '  (-3 МСК)';
                 audioHtml.innerHTML += `<audio controls src=\'${audioUrl}\'></audio>`;
                 content.append(audioHtml);
@@ -60,6 +62,7 @@ async function RunAllVoicesMode(){
 
 
 function RunMicrophoneMode(){
+    socket.removeListener('audioMessage');
     let newHtml = '<button id=\'recorder\' class=\'btn btn-rec\'>Record</button>' +
     '<button id=\'stop\' class=\'btn btn-stop\'>Stop</button>'
     content.innerHTML = newHtml;
@@ -90,12 +93,7 @@ function RunMicrophoneMode(){
                 });
             });
     }
-    
-
 }
-
-
-
 
 function RunStreamMode(){
     socket.on('audioMessage', function (audioChunks) {
@@ -103,32 +101,15 @@ function RunStreamMode(){
         console.log(audioBlob);
         const audioUrl = URL.createObjectURL(audioBlob);
         const audio = new Audio(audioUrl);
-        // console.log(audioBlob);
-        // console.log(audioUrl);
-        // content.innerHTML = `<audio controls src=\'${audioUrl}\'></audio>`;
         audio.play();
     });
-
 }
-
 
 socket.on('connect', socket =>{
     console.log('Connected');
 })
 
-
-
 socket.on('user', data =>{
     const onlineUsers = document.getElementById('online-count');
     onlineUsers.innerHTML = data;
-}) //В данном случае data - количество подключенных пользователей
-
-socket.on('audioMessage', data =>{
-    console.log(data);
-}) //при записи голосового, мы получаем data, которая ArrayBuffer, потом можно удалить этот блок
-
-// socket.on('user', function (usercount) {
-//     console.log(socket.querySelector('.usercount').text(usercount));
-// });
-
-
+})
